@@ -1,4 +1,8 @@
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Random;
 
 public class GitProject {
@@ -6,33 +10,52 @@ public class GitProject {
 	public static void main(String[] args) {
 		
 		
-		int tam=500*20;
+		int tam=10;
 				
-		int []x=Aleatorio(tam);
+		int []x=generateArray(tam);
 		long inc=System.nanoTime();
 					
 				insertionSort(x);
-				for (int i = 0; i < x.length; i++) {
-					System.out.println(x[i]+ " ");
-				}
+		
+				int z= binarySearch(x,0,x.length,9);
 				
+				System.out.println(z);
 				
 				
 			long fin=System.nanoTime();
 			System.out.println();
-			System.out.println(fin-inc +" Nanosegundos");
+			System.out.println((fin-inc )* Math.pow(10, 9)+" Nanosegundos");
 			
 		}
 	
-		static int[]Aleatorio(int tam){
+		static int[]generateArray(int tam){
 			int arr[]=new int [tam];
 			Random rnd = new Random();
-			for (int i = 0; i < arr.length; i++) {
-				arr[i]=rnd.nextInt(100000);
-						}
+			for (int i = 0; i < arr.length; i++) 
+				arr[i]=rnd.nextInt(10);
+						
 			return arr;
 		}
 		
+		public static void experiments() {
+			int[]array_100= generateArray(100);
+			int[]array_500=generateArray(500);
+			int[]array_1000=generateArray(1000);
+			
+			
+			
+			
+		}
+		
+		public static void printArray(int a[]) throws IOException {
+			FileWriter fw= new FileWriter("experimentos.cvs");
+			
+			BufferedWriter bw= new BufferedWriter(fw);
+			for (int i = 0; i < a.length; i++) {
+				bw.write(String.valueOf(a[i]));
+				
+			}
+		}
 		// BUBBLE SORT 
 		static void bubbleSort(int[]a ) {
 			
@@ -115,11 +138,11 @@ public class GitProject {
 				
 			}
 		}
-		//casierrav@poligran.edu.co
+		static //casierrav@poligran.edu.co
 		
 		//BUSQUEDA BINARIA
 		
-		int binarySearch(int arr[], int l, int r, int x) 
+		 int binarySearch(int arr[], int l, int r, int x) 
 	    { 
 	        if (r >= l) { 
 	            int mid = l + (r - l) / 2; 
