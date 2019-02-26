@@ -131,11 +131,13 @@ public class GitProject {
 	        }
 	        return resp;
 	    }
-		static void quickSort(int[]x,int piv1,int piv2) {
-			int temp=x[0];
-			for (int i = 1; i < x.length; i++) {
-				
-				
+		static int [] quickSort(int[]x,int index) {
+			if(x.length>0) {
+			int pivot=x[0];
+			int index_less=0, index_greater=0;
+			
+			}else {
+				return x;
 			}
 		}
 		static //casierrav@poligran.edu.co
