@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.Random;
 
 public class GitProject {
@@ -10,21 +11,23 @@ public class GitProject {
 	public static void main(String[] args) {
 		
 		
-		int tam=10;
+		int tam=1000;
 				
 		int []x=generateArray(tam);
 		long inc=System.nanoTime();
 					
-				insertionSort(x);
+				quickSort(x,0,x.length-1);
 		
-				int z= binarySearch(x,0,x.length,9);
 				
-				System.out.println(z);
+				long fin=System.nanoTime();
+				
+				System.out.println(Arrays.toString(x));
 				
 				
-			long fin=System.nanoTime();
+				
+			
 			System.out.println();
-			System.out.println((fin-inc )* Math.pow(10, 9)+" Nanosegundos");
+			System.out.println((fin-inc )+" Nanosegundos");
 			
 		}
 	
@@ -32,20 +35,12 @@ public class GitProject {
 			int arr[]=new int [tam];
 			Random rnd = new Random();
 			for (int i = 0; i < arr.length; i++) 
-				arr[i]=rnd.nextInt(10);
+				arr[i]=rnd.nextInt();
 						
 			return arr;
 		}
 		
-		public static void experiments() {
-			int[]array_100= generateArray(100);
-			int[]array_500=generateArray(500);
-			int[]array_1000=generateArray(1000);
-			
-			
-			
-			
-		}
+		
 		
 		public static void printArray(int a[]) throws IOException {
 			FileWriter fw= new FileWriter("experimentos.cvs");
@@ -88,7 +83,7 @@ public class GitProject {
 	}
 		
 		//MERGE SORT
-		public int[] mergeSort(int[]a) {
+		public static int[] mergeSort(int[]a) {
 	        int size=a.length;
 	        if(size>1) {
 	            int size_par=size/2;
@@ -106,7 +101,7 @@ public class GitProject {
 	        return a;
 	    }
 	    
-	    public int[]merge(int[]a_1,int[]a_2){
+	    public static int[]merge(int[]a_1,int[]a_2){
 	        int[]resp=new int[a_1.length+a_2.length];
 	        int index_a_1=0,index_a_2=0,index=0;
 	        while(index_a_1<a_1.length && index_a_2<a_2.length ) {
@@ -131,17 +126,136 @@ public class GitProject {
 	        }
 	        return resp;
 	    }
-		static int [] quickSort(int[]x,int index) {
-			if(x.length>0) {
-			int pivot=x[0];
-			int index_less=0, index_greater=0;
-			
-			}else {
-				return x;
-			}
-		}
-		static //casierrav@poligran.edu.co
-		
+	    
+	    
+	    //QUICKSORT
+	    
+	    public static int partition(int arr[], int low, int high) 
+	    { 
+	        int pivot = arr[high];  
+	        int i = (low-1); // index of smaller element 
+	        for (int j=low; j<high; j++) 
+	        { 
+	            // If current element is smaller than or 
+	            // equal to pivot 
+	            if (arr[j] <= pivot) 
+	            { 
+	                i++; 
+	  
+	                // swap arr[i] and arr[j] 
+	                int temp = arr[i]; 
+	                arr[i] = arr[j]; 
+	                arr[j] = temp; 
+	            } 
+	        } 
+	  
+	        // swap arr[i+1] and arr[high] (or pivot) 
+	        int temp = arr[i+1]; 
+	        arr[i+1] = arr[high]; 
+	        arr[high] = temp; 
+	  
+	        return i+1; 
+	    } 
+	  
+	  
+	    /* The main function that implements QuickSort() 
+	      arr[] --> Array to be sorted, 
+	      low  --> Starting index, 
+	      high  --> Ending index */
+	    public static void quickSort(int arr[], int low, int high) 
+	    { 
+	        if (low < high) 
+	        { 
+	            /* pi is partitioning index, arr[pi] is  
+	              now at right place */
+	            int pi = partition(arr, low, high); 
+	  
+	            // Recursively sort elements before 
+	            // partition and after partition 
+	            quickSort(arr, low, pi-1); 
+	            quickSort(arr, pi+1, high); 
+	        } 
+	    } 
+	    
+	    //RADIX SORT
+	    static int getMax(int arr[], int n) 
+	    { 
+	        int mx = arr[0]; 
+	        for (int i = 1; i < n; i++) 
+	            if (arr[i] > mx) 
+	                mx = arr[i]; 
+	        return mx; 
+	    } 
+	  
+	   
+	    static void countSort(int arr[], int n, int exp) 
+	    { 
+	        int output[] = new int[n]; // output array 
+	        int i; 
+	        int count[] = new int[10]; 
+	        Arrays.fill(count,0); 
+	  
+	        
+	        for (i = 0; i < n; i++) 
+	            count[ (arr[i]/exp)%10 ]++; 
+	  
+	       
+	        for (i = 1; i < 10; i++) 
+	            count[i] += count[i - 1]; 
+	  
+	       
+	        for (i = n - 1; i >= 0; i--) 
+	        { 
+	            output[count[ (arr[i]/exp)%10 ] - 1] = arr[i]; 
+	            count[ (arr[i]/exp)%10 ]--; 
+	        } 
+	  
+	       
+	        for (i = 0; i < n; i++) 
+	            arr[i] = output[i]; 
+	    } 
+	  
+	    
+	    static void radixsort(int arr[], int n) 
+	    { 
+	       
+	        int m = getMax(arr, n); 
+	  
+	        for (int exp = 1; m/exp > 0; exp *= 10) 
+	            countSort(arr, n, exp); 
+	    } 
+	    
+	    //COUNTING SORT
+	    void sort(char arr[]) 
+	    { 
+	        int n = arr.length; 
+	  
+	       
+	        char output[] = new char[n]; 
+	  
+	      
+	        int count[] = new int[256]; 
+	        for (int i=0; i<256; ++i) 
+	            count[i] = 0; 
+	  
+	       
+	        for (int i=0; i<n; ++i) 
+	            ++count[arr[i]]; 
+	  
+	        
+	        for (int i=1; i<=255; ++i) 
+	            count[i] += count[i-1]; 
+	  
+	       
+	        for (int i = n-1; i>=0; i--) 
+	        { 
+	            output[count[arr[i]]-1] = arr[i]; 
+	            --count[arr[i]]; 
+	        } 
+	  
+	        for (int i = 0; i<n; ++i) 
+	            arr[i] = output[i]; 
+	    } 
 		//BUSQUEDA BINARIA
 		
 		 int binarySearch(int arr[], int l, int r, int x) 
