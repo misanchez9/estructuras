@@ -9,6 +9,29 @@ public class BTNode {
 	public BTNode (int value) {
 		this.value=value;
 	}
+	public BTNode getParent(BTNode node, int val) {
+		
+		if(node==null) 
+			return null;
+		
+		BTNode getParent=null;
+		
+		while(node!=null) {
+			if(value<node.value) {
+				getParent=node;
+				node=node.left;	
+			}else if(value>node.value) {
+				getParent=node;
+				node=node.right;
+			}else {
+				break;
+			}
+			
+		}
+		return getParent;
+		
+		
+	}
 	
 	public BTNode getLeft() {
 		return this.left;

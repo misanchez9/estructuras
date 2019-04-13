@@ -41,7 +41,11 @@ public class BinaryTree {
 	}
 	
 	public void delete(BTNode nodeToDelete)
+	
 	{
+		
+		BTNode parent= nodeToDelete.getParent(nodeToDelete,nodeToDelete.value);
+		
 		
 		
 		
