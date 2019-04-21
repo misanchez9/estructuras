@@ -1,0 +1,6 @@
+En este ejercicio se utilizo un stack o una pila para guardar la informacion de los parentesis en la expresion.
+De esta manera empezamos a recorrer el arreglo de chars o el string, y preguntamos:
+Si el parentesis es de apertura agregelo a la pila.
+si el parentesis es de cierre entonces, pregunta si la pila esta vacia para no generar error de pila vacia.
+si esta vacia agregamos el parentesis de cierre , si no ,quitamos el tope de la pila
+cuando la pila este vacia quiere decir que la expresion es correcta, cuando no , quiere decir que la expresion es incorrecta
